@@ -1,26 +1,42 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="main-grid">
+    <div id="banner">Contrast Table</div>
+    <ColorInputList />
+    <ColorMatrix />
+  </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import ColorInputList from "./components/ColorInputList.vue";
+import ColorMatrix from "./components/ColorMatrix.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    ColorInputList,
+    ColorMatrix,
   },
 };
 </script>
 
 <style lang="scss">
+body {
+  padding: 30px;
+  background: rgb(204, 204, 204);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+#main-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "banner banner"
+    "color-input-list color-matrix"
+    "footer footer";
 }
 </style>
