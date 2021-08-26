@@ -7,7 +7,7 @@
         :key="index"
       />
     </ul>
-    <div>
+    <div id="new-color-container">
       <button @click="pushNewColor">Add Color</button>
     </div>
   </div>
@@ -43,9 +43,14 @@ export default {
 <style lang="scss" scoped>
 ul {
   padding: 0;
+  margin: 0;
 }
 
 #color-input-list {
   grid-area: color-input-list;
+}
+
+#new-color-container {
+  text-align: right;
 }
 </style>

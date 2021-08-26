@@ -1,6 +1,6 @@
 <template>
   <div id="main-grid">
-    <div id="banner">Contrast Table</div>
+    <div id="banner">Contrast Matrix</div>
     <ColorInputList />
     <ColorMatrix />
   </div>
@@ -29,14 +29,14 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
+#banner {
+  font-family: "Source Code Pro", monospace;
+}
+
 #main-grid {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto;
-  grid-template-areas:
-    "banner banner"
-    "color-input-list color-matrix"
-    "footer footer";
 }
 </style>
