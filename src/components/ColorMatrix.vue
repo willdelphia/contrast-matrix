@@ -21,28 +21,30 @@
         <button @click="changeMin(3)">Graphics AA</button>
       </div>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th class="empty"><!-- blank --></th>
-          <th v-for="(color, colorIndex) in colors" :key="colorIndex">
-            {{ color }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(colorOne, colorOneIndex) in colors" :key="colorOneIndex">
-          <th>{{ colorOne }}</th>
-          <ContrastCell
-            v-for="(colorTwo, colorTwoIndex) in colors"
-            :key="colorTwoIndex"
-            :colorOne="colorOne"
-            :colorTwo="colorTwo"
-            :min="min"
-          />
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflower">
+      <table>
+        <thead>
+          <tr>
+            <th class="empty"><!-- blank --></th>
+            <th v-for="(color, colorIndex) in colors" :key="colorIndex">
+              {{ color }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(colorOne, colorOneIndex) in colors" :key="colorOneIndex">
+            <th>{{ colorOne }}</th>
+            <ContrastCell
+              v-for="(colorTwo, colorTwoIndex) in colors"
+              :key="colorTwoIndex"
+              :colorOne="colorOne"
+              :colorTwo="colorTwo"
+              :min="min"
+            />
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -81,7 +83,13 @@ export default {
   grid-area: color-matrix;
 }
 
+.overflower {
+  max-width: 100%;
+  overflow: auto;
+}
+
 table {
+  box-sizing: border-box;
   margin: auto;
   border-collapse: collapse;
   th,
@@ -104,9 +112,9 @@ th {
   max-width: 100%;
   background: white;
   box-sizing: border-box;
-  margin-bottom: 2em;
   display: flex;
   gap: 1em;
+  margin: 0 auto 2em;
 }
 
 #left-settings {

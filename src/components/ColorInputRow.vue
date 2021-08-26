@@ -85,7 +85,6 @@ export default {
   display: grid;
   grid-template-columns: auto auto 1fr auto;
   align-items: center;
-  min-width: 400px;
 
   background: #fff;
   margin-bottom: 0.3em;

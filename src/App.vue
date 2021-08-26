@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss">
 body {
-  padding: 30px;
+  padding: 1em;
   background: rgb(204, 204, 204);
 }
 
@@ -31,12 +31,10 @@ body {
 
 #banner {
   font-family: "Source Code Pro", monospace;
+  text-align: center;
+  margin-bottom: 1em;
 }
 
 #main-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
 }
 </style>

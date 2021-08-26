@@ -41,9 +41,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#color-input-list {
+  width: 400px;
+  margin: 0 auto 1em auto;
+}
+
 ul {
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 #color-input-list {
