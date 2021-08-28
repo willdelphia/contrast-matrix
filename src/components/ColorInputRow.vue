@@ -10,7 +10,7 @@
         <span class="invalid" v-if="!colorValid">Invalid</span>
       </label>
     </div>
-    <div>
+    <div class="color-picker">
       <label>
         <span>Color Picker:</span>
         <input type="color" v-model="colorHex" />
@@ -83,28 +83,56 @@ export default {
 <style lang="scss" scoped>
 .color-input-row {
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: auto auto auto 1fr auto;
+  grid-template-areas: "index hex color . actions";
   align-items: center;
 
   background: #fff;
   margin-bottom: 0.3em;
   list-style: none;
-  gap: 0.3em;
+  column-gap: 0.3em;
 
   & > div:not(.index) {
     padding: 0.3em;
+  }
+
+  @media screen and (max-width: 350px) {
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "index hex   . actions"
+      "index color . actions";
   }
 }
 
 input[type="text"] {
   width: 100px;
+  height: 2em;
+  box-sizing: border-box;
+}
+
+input[type="color"] {
+  height: 2em;
+  box-sizing: border-box;
 }
 
 .index {
   display: flex;
   text-align: center;
   justify-content: center;
+  align-items: center;
   min-width: 30px;
+  grid-area: index;
+  align-self: stretch;
+  background: rgb(243, 243, 243);
+}
+
+.hex-code {
+  grid-area: hex;
+}
+
+.color-picker {
+  grid-area: color;
 }
 
 .invalid {
@@ -116,17 +144,21 @@ label {
   span {
     display: block;
     font-size: 0.6em;
+    margin-bottom: 0.2em;
+    white-space: nowrap;
   }
 }
 
 .row-actions {
   display: flex;
   gap: 0.3em;
+  grid-area: actions;
+  align-self: stretch;
 }
 
 .icon-button {
   width: 2em;
-  height: 3em;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

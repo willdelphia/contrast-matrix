@@ -3,18 +3,33 @@
     <div id="banner">Contrast Matrix</div>
     <ColorInputList />
     <ColorMatrix />
+    <div id="byline">
+      <a
+        href="https://github.com/willdelphia/contrast-matrix"
+        aria-label="Github repository"
+        v-html="github.toSVG()"
+      >
+      </a>
+      Made with Vue 3 by Will Delphia
+    </div>
   </div>
 </template>
 
 <script>
 import ColorInputList from "./components/ColorInputList.vue";
 import ColorMatrix from "./components/ColorMatrix.vue";
+import octicons from "@primer/octicons";
 
 export default {
   name: "App",
   components: {
     ColorInputList,
     ColorMatrix,
+  },
+  setup() {
+    return {
+      github: octicons["mark-github"],
+    };
   },
 };
 </script>
@@ -35,6 +50,9 @@ body {
   margin-bottom: 1em;
 }
 
-#main-grid {
+#byline {
+  margin: 4em auto 0 auto;
+  padding-top: 1em;
+  text-align: center;
 }
 </style>
