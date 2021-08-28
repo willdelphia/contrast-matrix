@@ -1,24 +1,7 @@
 # contrast-matrix
 
-## Project setup
-```
-npm install
-```
+This is a tool to help developers and designers compare colors for contrast. It is similar to other available tools that help you determine contrast, but this one allows you to consider more than two colors at a time. All combinations of all the colors are compared and displayed in a table.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Live
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+https://contrast-matrix.netlify.app/
