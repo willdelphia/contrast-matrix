@@ -1,6 +1,6 @@
 <template>
-  <div id="main-grid">
-    <div id="banner">Contrast Matrix</div>
+  <main id="main-grid">
+    <div id="banner"><h1>Contrast Matrix</h1></div>
     <ColorInputList />
     <ColorMatrix />
     <div id="byline">
@@ -12,7 +12,7 @@
       </a>
       Made with Vue 3 by Will Delphia
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -48,6 +48,10 @@ body {
   font-family: "Source Code Pro", monospace;
   text-align: center;
   margin-bottom: 1em;
+}
+
+h1 {
+  font-size: 1em;
 }
 
 #byline {
