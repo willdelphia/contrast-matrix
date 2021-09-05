@@ -1,6 +1,6 @@
 <template>
   <div id="color-input-list">
-    <ul>
+    <ul aria-label="Color Input List">
       <ColorInputRow
         v-for="(hex, index) in colors"
         :index="index"

@@ -85,7 +85,6 @@ export default {
   display: grid;
   grid-template-columns: auto auto auto 1fr auto;
   grid-template-areas: "index hex color . actions";
-  align-items: center;
 
   background: #fff;
   margin-bottom: 0.3em;
