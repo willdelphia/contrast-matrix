@@ -6,7 +6,7 @@
     <div class="hex-code">
       <label>
         <span>Hex Code:</span>
-        <input type="text" v-model="colorHex" :invalid="!colorValid" />
+        <input type="text" v-model="colorHex" :aira-invalid="!colorValid" />
         <span class="invalid" v-if="!colorValid">Invalid</span>
       </label>
     </div>
