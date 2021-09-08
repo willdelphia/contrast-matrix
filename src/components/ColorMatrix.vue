@@ -26,14 +26,18 @@
         <thead>
           <tr>
             <th class="empty"><!-- blank --></th>
-            <th v-for="(color, colorIndex) in colors" :key="colorIndex">
+            <th
+              v-for="(color, colorIndex) in colors"
+              :key="colorIndex"
+              scope="col"
+            >
               {{ color }}
             </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(colorOne, colorOneIndex) in colors" :key="colorOneIndex">
-            <th>{{ colorOne }}</th>
+            <th scope="row">{{ colorOne }}</th>
             <ContrastCell
               v-for="(colorTwo, colorTwoIndex) in colors"
               :key="colorTwoIndex"
