@@ -52,34 +52,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
 import ContrastCell from "./ContrastCell.vue";
 
-export default {
-  name: "ColorMatrix",
-  components: {
-    ContrastCell,
-  },
-  setup() {
-    const store = useStore();
-    const colors = computed(() => store.getters.uniqueValidColors);
+const store = useStore();
+const colors = computed(() => store.getters.uniqueValidColors);
 
-    const min = ref(4.5);
+const min = ref(4.5);
 
-    function changeMin(val) {
-      min.value = val;
-    }
-
-    return {
-      colors,
-      min,
-      changeMin,
-    };
-  },
-};
+function changeMin(val) {
+  min.value = val;
+}
 </script>
 
 <style lang="scss" scoped>

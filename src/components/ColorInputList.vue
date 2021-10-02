@@ -13,31 +13,18 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from "vue";
 import { useStore } from "vuex";
 import ColorInputRow from "./ColorInputRow.vue";
 
-export default {
-  name: "ColorInputList",
-  components: {
-    ColorInputRow,
-  },
-  setup() {
-    const store = useStore();
+const store = useStore();
 
-    const colors = computed(() => store.getters.colors);
+const colors = computed(() => store.getters.colors);
 
-    function pushNewColor() {
-      store.commit("pushNewColor");
-    }
-
-    return {
-      colors,
-      pushNewColor,
-    };
-  },
-};
+function pushNewColor() {
+  store.commit("pushNewColor");
+}
 </script>
 
 <style lang="scss" scoped>

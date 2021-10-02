@@ -14,38 +14,29 @@
   </td>
 </template>
 
-<script>
+<script setup>
 import { ColorContrastCalc } from "color-contrast-calc";
-import { computed } from "vue";
+import { computed, defineProps } from "vue";
 
-export default {
-  name: "ContrastCell",
-  props: {
-    colorOne: String,
-    colorTwo: String,
-    min: String,
-  },
-  setup(props) {
-    const contrastInfo = computed(() => {
-      const colorOne = ColorContrastCalc.colorFrom(props.colorOne);
-      const colorTwo = ColorContrastCalc.colorFrom(props.colorTwo);
-      const ratio = colorOne.contrastRatioAgainst(colorTwo);
+const props = defineProps({
+  colorOne: String,
+  colorTwo: String,
+  min: String,
+});
 
-      return {
-        ratioString: ratio.toFixed(2),
-        ratio: ratio,
-        level: colorOne.contrastLevel(colorTwo),
-      };
-    });
+const contrastInfo = computed(() => {
+  const colorOne = ColorContrastCalc.colorFrom(props.colorOne);
+  const colorTwo = ColorContrastCalc.colorFrom(props.colorTwo);
+  const ratio = colorOne.contrastRatioAgainst(colorTwo);
 
-    const minNumber = computed(() => parseFloat(props.min));
+  return {
+    ratioString: ratio.toFixed(2),
+    ratio: ratio,
+    level: colorOne.contrastLevel(colorTwo),
+  };
+});
 
-    return {
-      contrastInfo,
-      minNumber,
-    };
-  },
-};
+const minNumber = computed(() => parseFloat(props.min));
 </script>
 
 <style lang="scss" scoped>

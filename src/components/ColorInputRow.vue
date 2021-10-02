@@ -34,50 +34,34 @@
   </li>
 </template>
 
-<script>
-import { useRef, computed } from "vue";
+<script setup>
+import { computed, defineProps } from "vue";
 import { useStore } from "vuex";
 import { x, duplicate } from "@primer/octicons";
 
-export default {
-  name: "ColorInputRow",
-  props: {
-    hex: String,
-    index: Number,
-  },
-  components: {},
-  setup(props) {
-    console.log(x, duplicate);
-    const store = useStore();
+const props = defineProps({
+  hex: String,
+  index: Number,
+});
 
-    const colors = computed(() => store.getters.colors);
+const store = useStore();
 
-    const colorValid = computed(() => store.getters.valid(props.index));
-    const colorHex = computed({
-      get: () => store.getters.hex(props.index),
-      set: (val) =>
-        store.commit("updateColor", { index: props.index, newColor: val }),
-    });
+const colors = computed(() => store.getters.colors);
 
-    function deleteColor() {
-      store.commit("deleteColor", { index: props.index });
-    }
+const colorValid = computed(() => store.getters.valid(props.index));
+const colorHex = computed({
+  get: () => store.getters.hex(props.index),
+  set: (val) =>
+    store.commit("updateColor", { index: props.index, newColor: val }),
+});
 
-    function cloneColor() {
-      store.commit("duplicateColor", { index: props.index });
-    }
+function deleteColor() {
+  store.commit("deleteColor", { index: props.index });
+}
 
-    return {
-      colors,
-      colorHex,
-      colorValid,
-      deleteColor,
-      cloneColor,
-      x,
-      duplicate,
-    };
-  },
-};
+function cloneColor() {
+  store.commit("duplicateColor", { index: props.index });
+}
 </script>
 
 <style lang="scss" scoped>

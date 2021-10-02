@@ -15,23 +15,12 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import ColorInputList from "./components/ColorInputList.vue";
 import ColorMatrix from "./components/ColorMatrix.vue";
 import octicons from "@primer/octicons";
 
-export default {
-  name: "App",
-  components: {
-    ColorInputList,
-    ColorMatrix,
-  },
-  setup() {
-    return {
-      github: octicons["mark-github"],
-    };
-  },
-};
+const github = octicons["mark-github"];
 </script>
 
 <style lang="scss">
