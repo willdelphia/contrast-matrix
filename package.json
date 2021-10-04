@@ -9,8 +9,13 @@
   },
   "dependencies": {
     "@primer/octicons": "^15.0.1",
+    "color-blend": "^3.0.1",
     "color-contrast-calc": "^0.4.1",
+    "color-parse": "^1.4.2",
     "core-js": "^3.6.5",
+    "hex-rgb": "^5.0.0",
+    "rgb-hex": "^4.0.0",
+    "validate-color": "^2.1.1",
     "vue": "^3.0.0",
     "vue-octicon": "^2.1.1",
     "vuex": "^4.0.0-0"
