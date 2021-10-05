@@ -27,6 +27,14 @@ const github = octicons["mark-github"];
 body {
   padding: 1em;
   background: rgb(204, 204, 204);
+
+  @media screen and (max-width: 400px) {
+    padding: 0.3em;
+  }
+}
+
+* {
+  box-sizing: border-box;
 }
 
 #app {

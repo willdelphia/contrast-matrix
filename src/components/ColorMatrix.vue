@@ -79,7 +79,6 @@ function changeMin(val) {
 }
 
 table {
-  box-sizing: border-box;
   margin: auto;
   border-collapse: collapse;
   th,
@@ -101,7 +100,6 @@ th {
   width: 400px;
   max-width: 100%;
   background: white;
-  box-sizing: border-box;
   display: flex;
   gap: 1em;
   margin: 0 auto 2em;

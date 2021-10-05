@@ -28,6 +28,7 @@
           class="alpha-toggler-checkbox"
           type="checkbox"
           v-model="alphaMode"
+          @input="alphaForegroundInput"
         />
       </label>
     </div>
@@ -54,6 +55,19 @@
             type="text"
             v-model="alphaForegroundRGBA"
             :aira-invalid="!colorValid"
+            @input="alphaForegroundInput"
+          />
+          <span class="invalid" v-if="!alphaForegroundValid">Invalid</span>
+        </label>
+        <label>
+          <span>Alpha:</span>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            v-model="alphaForgroundAlpha"
+            @input="alphaRangeInput"
           />
           <span class="invalid" v-if="!alphaForegroundValid">Invalid</span>
         </label>
@@ -65,8 +79,17 @@
             type="text"
             v-model="alphaBackgroundRGB"
             :aira-invalid="!alphaBackgroundValid"
+            @input="backgroundTextInput"
           />
           <span class="invalid" v-if="!alphaBackgroundValid">Invalid</span>
+        </label>
+        <label>
+          <span>BG Color Picker:</span>
+          <input
+            type="color"
+            v-model="alphaBackgroundPicker"
+            @input="backgroundPickerInput"
+          />
         </label>
       </div>
     </div>
@@ -111,7 +134,9 @@ function cloneColor() {
 
 const alphaMode = ref(false);
 const alphaForegroundRGBA = ref("rgba(0,0,0,0)");
+const alphaForgroundAlpha = ref(1);
 const alphaBackgroundRGB = ref("rgb(255,255,255)");
+const alphaBackgroundPicker = ref("#ffffff");
 
 const alphaForegroundValid = computed(() => {
   return validateHTMLColor(alphaForegroundRGBA.value);
@@ -153,6 +178,34 @@ watch(() => {
     colorHex.value = `#${rgbHex(r, g, b)}`;
   }
 });
+
+function backgroundTextInput() {
+  const hex = rgbHex(alphaBackgroundRGB.value);
+  console.log(hex);
+  alphaBackgroundPicker.value = `#${hex}`;
+}
+
+function backgroundPickerInput() {
+  const rbg = hexRgb(alphaBackgroundPicker.value);
+  alphaBackgroundRGB.value = `rgb(${rbg.red}, ${rbg.green}, ${rbg.blue})`;
+}
+
+function alphaRangeInput() {
+  const fg = parse(alphaForegroundRGBA.value);
+
+  const fgObj = {
+    r: fg.values[0],
+    g: fg.values[1],
+    b: fg.values[2],
+  };
+
+  alphaForegroundRGBA.value = `rgba(${fgObj.r}, ${fgObj.g}, ${fgObj.b}, ${alphaForgroundAlpha.value})`;
+}
+
+function alphaForegroundInput() {
+  const fg = parse(alphaForegroundRGBA.value);
+  alphaForgroundAlpha.value = fg.alpha;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -160,41 +213,45 @@ watch(() => {
   display: grid;
   grid-template-columns: auto auto auto auto 1fr auto;
   grid-template-areas: "index hex color alpha-toggler . actions";
+  padding: 0.3em;
 
   &.alpha-mode {
     grid-template-columns: auto auto auto auto 1fr auto;
     grid-template-areas:
       "index hex color alpha-toggler . actions"
-      "index alpha-panel alpha-panel alpha-panel . .";
+      "index alpha-panel alpha-panel alpha-panel . . ";
   }
 
   background: #fff;
   margin-bottom: 0.3em;
   list-style: none;
-  column-gap: 0.3em;
+  column-gap: 0.4em;
+  row-gap: 0.3em;
 
-  & > div:not(.index):not(.alpha-mode-panel) {
-    padding: 0.3em;
-  }
-
-  @media screen and (max-width: 350px) {
-    grid-template-columns: auto auto 1fr auto;
+  @media screen and (max-width: 480px) {
+    grid-template-columns: auto auto auto 1fr auto;
     grid-template-rows: auto auto;
     grid-template-areas:
-      "index hex   . actions"
-      "index color . actions";
+      "index hex  hex  . actions"
+      "index color  alpha-toggler . . ";
+
+    &.alpha-mode {
+      grid-template-columns: auto auto auto 1fr auto;
+      grid-template-areas:
+        "index hex hex . actions"
+        "index color alpha-toggler . . "
+        "index alpha-panel alpha-panel alpha-panel .  ";
+    }
   }
 }
 
 input[type="text"] {
-  width: 150px;
+  width: 160px;
   height: 2em;
-  box-sizing: border-box;
 }
 
 input[type="color"] {
   height: 2em;
-  box-sizing: border-box;
 }
 
 .index {
@@ -206,6 +263,7 @@ input[type="color"] {
   grid-area: index;
   align-self: stretch;
   background: rgb(243, 243, 243);
+  margin: -0.3em 0 -0.3em -0.3em;
 }
 
 .hex-code {
@@ -242,6 +300,7 @@ label {
   display: grid;
   grid-template-rows: auto 1fr;
   height: 100%;
+  text-align: center;
 }
 
 .alpha-toggler-checkbox {
@@ -270,15 +329,11 @@ label {
   display: flex;
   flex-direction: column;
   gap: 0.3em;
-
-  & > div {
-    padding: 0.3em;
-  }
 }
 
 .alpha-panel-input-container {
   display: flex;
-  gap: 1em;
+  gap: 0.4em;
 }
 
 .alpha-foreground-rbga-code {
@@ -291,5 +346,9 @@ label {
 
 .alpha-background-color-picker {
   grid-area: background-picker;
+}
+
+[type="range"] {
+  width: 100px;
 }
 </style>
