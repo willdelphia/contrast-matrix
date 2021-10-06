@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, ref, watch } from "vue";
+import { computed, defineProps, ref, watchEffect } from "vue";
 import { useStore } from "vuex";
 import { x, duplicate } from "@primer/octicons";
 import hexRgb from "hex-rgb";
@@ -147,7 +147,7 @@ const backgroundValid = computed(() => {
   return validateHTMLColor(backgroundRGB.value);
 });
 
-watch(() => {
+watchEffect(() => {
   if (!alphaMode.value && colorValid.value) {
     const foreground = hexRgb(colorHex.value);
     const { red, green, blue } = foreground;
@@ -155,7 +155,7 @@ watch(() => {
   }
 });
 
-watch(() => {
+watchEffect(() => {
   if (alphaMode.value && foregroundValid.value) {
     const fg = parse(foregroundRGBA.value);
     const bg = parse(backgroundRGB.value);
@@ -182,7 +182,6 @@ watch(() => {
 
 function backgroundTextInput() {
   const hex = rgbHex(backgroundRGB.value);
-  console.log(hex);
   backgroundPicker.value = `#${hex}`;
 }
 

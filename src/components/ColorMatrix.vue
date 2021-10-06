@@ -16,9 +16,9 @@
         />
       </div>
       <div id="right-settings">
-        <button @click="changeMin(4.5)">Text AA</button>
-        <button @click="changeMin(3)">Large Text AA</button>
-        <button @click="changeMin(3)">Graphics AA</button>
+        <button @click="changeMin('4.5')">Text AA</button>
+        <button @click="changeMin('3')">Large Text AA</button>
+        <button @click="changeMin('3')">Graphics AA</button>
       </div>
     </div>
     <div class="overflower">
@@ -61,7 +61,7 @@ import ContrastCell from "./ContrastCell.vue";
 const store = useStore();
 const colors = computed(() => store.getters.uniqueValidColors);
 
-const min = ref(4.5);
+const min = ref("4.5");
 
 function changeMin(val) {
   min.value = val;
