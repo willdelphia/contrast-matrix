@@ -28,7 +28,7 @@
           class="alpha-toggler-checkbox"
           type="checkbox"
           v-model="alphaMode"
-          @input="alphaForegroundInput"
+          @input="foregroundInput"
         />
       </label>
     </div>
@@ -53,11 +53,11 @@
           <span>Foreground RGBA Code:</span>
           <input
             type="text"
-            v-model="alphaForegroundRGBA"
+            v-model="foregroundRGBA"
             :aira-invalid="!colorValid"
-            @input="alphaForegroundInput"
+            @input="foregroundInput"
           />
-          <span class="invalid" v-if="!alphaForegroundValid">Invalid</span>
+          <span class="invalid" v-if="!foregroundValid">Invalid</span>
         </label>
         <label>
           <span>Alpha:</span>
@@ -66,10 +66,10 @@
             min="0"
             max="1"
             step="0.01"
-            v-model="alphaForgroundAlpha"
+            v-model="foregroundAlpha"
             @input="alphaRangeInput"
+            :disabled="!foregroundAlphaValid"
           />
-          <span class="invalid" v-if="!alphaForegroundValid">Invalid</span>
         </label>
       </div>
       <div class="alpha-panel-input-container alpha-background-hex-code">
@@ -77,17 +77,17 @@
           <span>Background RBG Code:</span>
           <input
             type="text"
-            v-model="alphaBackgroundRGB"
-            :aira-invalid="!alphaBackgroundValid"
+            v-model="backgroundRGB"
+            :aira-invalid="!backgroundValid"
             @input="backgroundTextInput"
           />
-          <span class="invalid" v-if="!alphaBackgroundValid">Invalid</span>
+          <span class="invalid" v-if="!backgroundValid">Invalid</span>
         </label>
         <label>
           <span>BG Color Picker:</span>
           <input
             type="color"
-            v-model="alphaBackgroundPicker"
+            v-model="backgroundPicker"
             @input="backgroundPickerInput"
           />
         </label>
@@ -133,31 +133,32 @@ function cloneColor() {
 //alpha mode
 
 const alphaMode = ref(false);
-const alphaForegroundRGBA = ref("rgba(0,0,0,0)");
-const alphaForgroundAlpha = ref(1);
-const alphaBackgroundRGB = ref("rgb(255,255,255)");
-const alphaBackgroundPicker = ref("#ffffff");
+const foregroundRGBA = ref("rgba(0,0,0,0)");
+const foregroundAlpha = ref(1);
+const foregroundAlphaValid = ref(true);
+const backgroundRGB = ref("rgb(255,255,255)");
+const backgroundPicker = ref("#ffffff");
 
-const alphaForegroundValid = computed(() => {
-  return validateHTMLColor(alphaForegroundRGBA.value);
+const foregroundValid = computed(() => {
+  return validateHTMLColor(foregroundRGBA.value);
 });
 
-const alphaBackgroundValid = computed(() => {
-  return validateHTMLColor(alphaBackgroundRGB.value);
+const backgroundValid = computed(() => {
+  return validateHTMLColor(backgroundRGB.value);
 });
 
 watch(() => {
   if (!alphaMode.value && colorValid.value) {
     const foreground = hexRgb(colorHex.value);
     const { red, green, blue } = foreground;
-    alphaForegroundRGBA.value = `rgba(${red}, ${green}, ${blue}, 1)`;
+    foregroundRGBA.value = `rgba(${red}, ${green}, ${blue}, 1)`;
   }
 });
 
 watch(() => {
-  if (alphaMode.value && alphaForegroundValid.value) {
-    const fg = parse(alphaForegroundRGBA.value);
-    const bg = parse(alphaBackgroundRGB.value);
+  if (alphaMode.value && foregroundValid.value) {
+    const fg = parse(foregroundRGBA.value);
+    const bg = parse(backgroundRGB.value);
 
     const fgObj = {
       r: fg.values[0],
@@ -180,18 +181,18 @@ watch(() => {
 });
 
 function backgroundTextInput() {
-  const hex = rgbHex(alphaBackgroundRGB.value);
+  const hex = rgbHex(backgroundRGB.value);
   console.log(hex);
-  alphaBackgroundPicker.value = `#${hex}`;
+  backgroundPicker.value = `#${hex}`;
 }
 
 function backgroundPickerInput() {
-  const rbg = hexRgb(alphaBackgroundPicker.value);
-  alphaBackgroundRGB.value = `rgb(${rbg.red}, ${rbg.green}, ${rbg.blue})`;
+  const rbg = hexRgb(backgroundPicker.value);
+  backgroundRGB.value = `rgb(${rbg.red}, ${rbg.green}, ${rbg.blue})`;
 }
 
 function alphaRangeInput() {
-  const fg = parse(alphaForegroundRGBA.value);
+  const fg = parse(foregroundRGBA.value);
 
   const fgObj = {
     r: fg.values[0],
@@ -199,12 +200,19 @@ function alphaRangeInput() {
     b: fg.values[2],
   };
 
-  alphaForegroundRGBA.value = `rgba(${fgObj.r}, ${fgObj.g}, ${fgObj.b}, ${alphaForgroundAlpha.value})`;
+  foregroundRGBA.value = `rgba(${fgObj.r}, ${fgObj.g}, ${fgObj.b}, ${foregroundAlpha.value})`;
 }
 
-function alphaForegroundInput() {
-  const fg = parse(alphaForegroundRGBA.value);
-  alphaForgroundAlpha.value = fg.alpha;
+function foregroundInput() {
+  const fg = parse(foregroundRGBA.value);
+  if (isNaN(fg.alpha)) {
+    console.log("NOT A NUMBER");
+    foregroundAlphaValid.value = false;
+    foregroundAlpha.value = 1;
+  } else {
+    foregroundAlphaValid.value = true;
+    foregroundAlpha.value = fg.alpha;
+  }
 }
 </script>
 
