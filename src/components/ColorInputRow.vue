@@ -69,6 +69,7 @@
             v-model="foregroundAlpha"
             @input="alphaRangeInput"
             :disabled="!foregroundAlphaValid"
+            @mousedown="removeSelectionRanges"
           />
         </label>
       </div>
@@ -105,6 +106,7 @@ import rgbHex from "rgb-hex";
 import parse from "color-parse";
 import { validateHTMLColor } from "validate-color";
 import { normal } from "color-blend";
+import { removeSelectionRanges } from "../common.js";
 
 const props = defineProps({
   hex: String,

@@ -13,6 +13,7 @@
           max="21"
           step="0.1"
           v-model="min"
+          @mousedown="removeSelectionRanges"
         />
       </div>
       <div id="right-settings">
@@ -57,6 +58,8 @@ import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
 import ContrastCell from "./ContrastCell.vue";
+
+import { removeSelectionRanges } from "../common.js";
 
 const store = useStore();
 const colors = computed(() => store.getters.uniqueValidColors);
